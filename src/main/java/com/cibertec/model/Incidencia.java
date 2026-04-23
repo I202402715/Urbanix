@@ -4,6 +4,7 @@ import java.time.LocalDateTime;
 
 import com.cibertec.enums.Modelos_enum.EstadoIncidencia;
 import com.cibertec.enums.Modelos_enum.NivelPrioridad;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 import jakarta.persistence.*;
 import lombok.Getter;
@@ -27,6 +28,7 @@ public class Incidencia {
 
     @ManyToOne
     @JoinColumn(name = "categoria_id", nullable = false)
+    @JsonIgnoreProperties("incidencias")
     private Categoria categoria;
 
     @ManyToOne
