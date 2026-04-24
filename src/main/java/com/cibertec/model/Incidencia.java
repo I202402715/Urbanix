@@ -23,7 +23,7 @@ public class Incidencia {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 
-    @Column(nullable = false, unique = true, length = 20)
+	@Column(nullable = true, unique = true, length = 20)
     private String codigo;
 
     @ManyToOne
@@ -54,7 +54,8 @@ public class Incidencia {
     private EstadoIncidencia estado = EstadoIncidencia.pendiente;
 
     @Enumerated(EnumType.STRING)
-    @Column(columnDefinition = "nivel_prioridad")
+    @Column(name = "prioridad", columnDefinition = "nivel_prioridad")
+    @JdbcTypeCode(SqlTypes.NAMED_ENUM)
     private NivelPrioridad prioridad = NivelPrioridad.media;
 
     @Column(name = "creado_en")
