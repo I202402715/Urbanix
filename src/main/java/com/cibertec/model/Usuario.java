@@ -6,6 +6,8 @@ import org.hibernate.annotations.JdbcTypeCode;
 import org.hibernate.type.SqlTypes;
 
 import com.cibertec.enums.Modelos_enum.RolUsuario;
+import com.fasterxml.jackson.annotation.JsonProperty;
+
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.EnumType;
@@ -41,7 +43,7 @@ public class Usuario {
     private String telefono;
 
     @Column(name = "contrasena_hash", nullable = false)
-    @com.fasterxml.jackson.annotation.JsonIgnore
+    @JsonProperty(value = "contrasena_hash", access = JsonProperty.Access.WRITE_ONLY)
     private String contrasenaHash;
 
     @Enumerated(EnumType.STRING)
