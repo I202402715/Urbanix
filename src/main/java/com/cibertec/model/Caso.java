@@ -51,6 +51,7 @@ public class Caso {
     private Integer radioMetros = 200;
 
     @OneToMany(mappedBy = "caso")
+    @com.fasterxml.jackson.annotation.JsonIgnore
     private List<Incidencia> incidencias;
 
     @Column(name = "creado_en")

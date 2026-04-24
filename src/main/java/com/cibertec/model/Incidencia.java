@@ -24,6 +24,7 @@ public class Incidencia {
 
     @ManyToOne
     @JoinColumn(name = "usuario_id", nullable = false)
+    @JsonIgnoreProperties({"contrasenaHash", "area", "creadoEn", "actualizadoEn", "rol", "activo"})
     private Usuario usuario;
 
     @ManyToOne
@@ -31,8 +32,9 @@ public class Incidencia {
     @JsonIgnoreProperties("incidencias")
     private Categoria categoria;
 
-    @ManyToOne
+    
     @JoinColumn(name = "ubicacion_id", nullable = false)
+    @ManyToOne(cascade = CascadeType.ALL)
     private Ubicacion ubicacion;
     
     @ManyToOne

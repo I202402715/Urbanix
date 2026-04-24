@@ -3,7 +3,6 @@ package com.cibertec.model;
 import java.time.LocalDateTime;
 
 import com.cibertec.enums.Modelos_enum.RolUsuario;
-
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.EnumType;
@@ -39,6 +38,7 @@ public class Usuario {
     private String telefono;
 
     @Column(name = "contrasena_hash", nullable = false)
+    @com.fasterxml.jackson.annotation.JsonIgnore
     private String contrasenaHash;
 
     @Enumerated(EnumType.STRING)
@@ -47,6 +47,7 @@ public class Usuario {
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "area_id")
+    @com.fasterxml.jackson.annotation.JsonIgnoreProperties({"responsable", "usuarios"}) // <--- AGREGA ESTO
     private AreaMunicipal area;
 
     private Boolean activo = true;
