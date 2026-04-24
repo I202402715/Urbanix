@@ -2,9 +2,13 @@ package com.cibertec.model;
 
 import java.time.LocalDateTime;
 
+import org.hibernate.annotations.JdbcTypeCode;
+import org.hibernate.type.SqlTypes;
+
 import com.cibertec.enums.Modelos_enum.EstadoIncidencia;
 import com.cibertec.enums.Modelos_enum.NivelPrioridad;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.annotation.JsonProperty;
 
 import jakarta.persistence.*;
 import lombok.Getter;
@@ -46,6 +50,7 @@ public class Incidencia {
 
     @Enumerated(EnumType.STRING)
     @Column(length = 50)
+    @JdbcTypeCode(SqlTypes.NAMED_ENUM)
     private EstadoIncidencia estado = EstadoIncidencia.pendiente;
 
     @Enumerated(EnumType.STRING)
@@ -54,4 +59,10 @@ public class Incidencia {
 
     @Column(name = "creado_en")
     private LocalDateTime creadoEn = LocalDateTime.now();
+    
+    /*
+    @Column(name = "foto_url", columnDefinition = "TEXT")
+    @JsonProperty("foto_url")
+    private String fotoUrl;
+    */
 }
