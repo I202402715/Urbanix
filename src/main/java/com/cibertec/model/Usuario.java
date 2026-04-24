@@ -2,6 +2,9 @@ package com.cibertec.model;
 
 import java.time.LocalDateTime;
 
+import org.hibernate.annotations.JdbcTypeCode;
+import org.hibernate.type.SqlTypes;
+
 import com.cibertec.enums.Modelos_enum.RolUsuario;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -43,6 +46,7 @@ public class Usuario {
 
     @Enumerated(EnumType.STRING)
     @Column(columnDefinition = "rol_usuario")
+    @JdbcTypeCode(SqlTypes.NAMED_ENUM)
     private RolUsuario rol = RolUsuario.ciudadano;
 
     @ManyToOne(fetch = FetchType.LAZY)
