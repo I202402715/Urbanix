@@ -40,6 +40,7 @@ public class UsuarioController {
             return ResponseEntity.notFound().build();
         }
     }
+    
     @PostMapping
     public Usuario crear(@RequestBody Usuario usuario) {
         return service.guardar(usuario);
@@ -71,5 +72,30 @@ public class UsuarioController {
         if (user != null && user.getContrasenaHash().equals(clave)) return ResponseEntity.ok(user);
         return ResponseEntity.status(401).build();
     }
+    
+    
+    @PostMapping("/google-login")
+    public ResponseEntity<?> loginConGoogle(@RequestBody java.util.Map<String, String> datos) {
+        String correo = datos.get("correo");
+        String nombre = datos.get("nombre");
+
+        Usuario usuarioExistente = service.buscarPorCorreo(correo);
+
+        if (usuarioExistente != null) {
+            return ResponseEntity.ok(usuarioExistente);
+        } else {
+            Usuario nuevo = new Usuario();
+            nuevo.setNombre(nombre != null ? nombre : "Usuario Google");
+            nuevo.setCorreo(correo);
+            nuevo.setActivo(true);
+            nuevo.setRol(com.cibertec.enums.Modelos_enum.RolUsuario.ciudadano);
+            
+            nuevo.setContrasenaHash(java.util.UUID.randomUUID().toString());
+
+            return ResponseEntity.ok(service.guardar(nuevo));
+        }
+    }
+    
+    
 	
 }
