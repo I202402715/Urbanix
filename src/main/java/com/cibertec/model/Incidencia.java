@@ -62,8 +62,9 @@ public class Incidencia {
     private LocalDateTime creadoEn = LocalDateTime.now();
     
     
-    @Column(name = "foto_url", columnDefinition = "TEXT")
-    @JsonProperty("foto_url")
-    private String fotoUrl;
+    @Lob
+    @Column(name = "foto_url") 
+    @JsonProperty("foto_url") 
+    private byte[] fotoUrl;
     
 }
