@@ -20,8 +20,10 @@ public class IncidenciasServices {
     }
 
     public Incidencia registrar(Incidencia incidencia) {
-        String codigo = "URB-" + UUID.randomUUID().toString().substring(0, 8).toUpperCase();
-        incidencia.setCodigo(codigo);
+        if (incidencia.getId() == null) {
+            String codigo = "URB-" + UUID.randomUUID().toString().substring(0, 8).toUpperCase();
+            incidencia.setCodigo(codigo);
+        }
         return repository.save(incidencia);
     }
     
