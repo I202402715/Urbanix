@@ -37,15 +37,25 @@ public class IncidenciaController {
 
     @PatchMapping("/{id}")
     public ResponseEntity<Incidencia> editar(@PathVariable Integer id, @RequestBody Incidencia datos) {
-        Incidencia inc = service.buscarPorId(id).orElse(null);
-        
-        if (inc != null) {
-            if (datos.getDescripcion() != null) inc.setDescripcion(datos.getDescripcion());
-            if (datos.getEstado() != null) inc.setEstado(datos.getEstado());
-            if (datos.getPrioridad() != null) inc.setPrioridad(datos.getPrioridad());
-            return ResponseEntity.ok(service.registrar(inc));
-        }
-        return ResponseEntity.notFound().build();
+ 
+        return service.buscarPorId(id).map(incExistente -> {
+
+            if (datos.getEstado() != null) {
+                incExistente.setEstado(datos.getEstado());
+            }
+            
+            if (datos.getPrioridad() != null) {
+                incExistente.setPrioridad(datos.getPrioridad());
+            }
+            
+            if (datos.getDescripcion() != null) {
+                incExistente.setDescripcion(datos.getDescripcion());
+            }
+
+            Incidencia actualizada = service.registrar(incExistente);
+            return ResponseEntity.ok(actualizada);
+            
+        }).orElse(ResponseEntity.notFound().build());
     }
 
     @GetMapping("/usuario/{usuarioId}")
